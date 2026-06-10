@@ -1,0 +1,86 @@
+body {
+    background-image: url('fondo.jpg');
+    background-size: cover;      /* Estira o encoge la imagen para que cubra toda la pantalla sin deformarse */
+    background-position: center;  /* Centra la imagen vertical y horizontalmente para que no se corte un solo lado */
+    background-repeat: no-repeat; /* Evita que la imagen se duplique como mosaico si la pantalla es muy grande */
+    margin: 0;                          /* elimina el margen por defecto del navegador */
+    min-height: 100vh;                  /* ocupa al menos toda la altura de la pantalla */
+    display: flex;                      /* activa flexbox para alinear los hijos */
+    flex-direction: column;             /* los hijos se apilan verticalmente */
+    align-items: center;                /* centra todo horizontalmente */
+    padding: 40px 20px;                 /* espacio interno arriba/abajo y a los lados */
+    box-sizing: border-box;             /* el padding no agrega tamaño extra al body */
+}
+.form-container {
+       background: rgba(37, 3, 3, 0.05); /* blanco muy transparente */
+    backdrop-filter: blur(100px);           /* efecto vidrio esmerilado */
+    border: 1px solid rgba(228, 222, 222, 0.151); /* borde sutil */
+    border-radius: 20px;
+    padding: 40px; /* agrega espacio interno de 40px en los 4 lados del elemento */
+}
+
+
+h1 {
+ text-shadow: 0 0 20px rgba(0, 0, 0, 0.63);
+    text-transform: uppercase; /* todo en mayúsculas */
+    letter-spacing: 4px; /* separa las letras, se ve más premium */
+    font-family: "Orbitron", sans-serif;
+    font-size: 52px;
+    color: #b32121;                           /* texto rojo */
+    text-align: center;                       /* centra el texto dentro del elemento */
+    margin-bottom: 30px;                      /* espacio debajo del h1, antes de la imagen */
+}
+
+.logo img {
+    display: block;      /* la imagen se comporta como bloque */
+    margin: 0 auto;      /* el auto reparte espacio igual a izquierda y derecha */
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.637);
+     border-radius: 30px;
+    display: block;       /* evita que la imagen tenga espacio extra debajo por ser inline */
+    margin-bottom: 30px;  /* espacio debajo de la imagen, antes del texto p */
+}
+p {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 1); /* sombra negra sólida, desplazada 2px abajo y a la derecha */
+    line-height: 1.7;    /* más espacio entre líneas, más legible */
+    letter-spacing: 1px; /* leve separación entre letras */
+    font-size: 18px; 
+    font-family: "Raleway", sans-serif;
+    color: #a0a0a0;       /* texto blanco */
+    text-align: center;   /* centra el texto */
+    max-width: 600px;      /* limita el ancho para que no se extienda demasiado */
+    margin: 0;            /* sin margen extra */
+    margin: 0 auto; /* sin margen arriba/abajo, y centrado horizontalmente con auto */
+    margin-top: 30px; 
+}
+.bloque-derecha {
+    background: #05182cab;   
+    border: 2px solid #000000;         /* borde azul de 2px */
+    border-radius: 15px;               /* bordes redondeados */
+    padding: 20px 40px;                /* espacio interno: 20px arriba/abajo, 40px izquierda/derecha */
+    cursor: pointer;                   /* el cursor se convierte en manito al pasar encima */
+    transition: background 0.3s;       /* animación suave de 0.3 segundos al hacer hover */
+    display: flex;                     /* activa flexbox para alinear el contenido adentro */
+    flex-direction: column;            /* texto arriba e imagen abajo */
+    align-items: center;               /* centra el contenido horizontalmente */
+    gap: 10px;                         /* espacio entre el texto y la imagen */
+    margin-top: 40px;                  /* espacio entre el bloque principal y este */
+    transition: transform 0.3s, background 0.3s;  /* animación al salir */
+}
+
+.bloque-derecha:hover {
+    background: #010d1a;               /* se rellena de azul cuando pasás el mouse encima */
+        transform: scale(1.15);        /* agranda el bloque un 5% al pasar el mouse */    /* animación suave del agrandado */
+}
+
+p2 {
+    color: #3825e2;                    /* texto blanco */
+    font-family: "Bebas Neue", sans-serif;   /* fuente grande, impactante, perfecta para títulos */
+    font-size: 28px;
+    letter-spacing: 4px;                     /* separa las letras, queda muy prolijo */
+}
+.catalogo img{
+    display: block;      /* la imagen se comporta como bloque */
+    margin: 0 auto;      /* el auto reparte espacio igual a izquierda y derecha */
+    border-radius: 15px;                    /* esquinas redondeadas */
+    border: 2px solid #0071e3;             /* contorno azul de 2px */
+}

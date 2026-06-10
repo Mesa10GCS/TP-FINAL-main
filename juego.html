@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atrapa el Descuento</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #000;
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  #game-container {
+    position: relative;
+    width: 420px;
+    height: 620px;
+    background: #0a0a0a;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #222;
+  }
+
+  #hud {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 14px 18px 10px;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  #discount-display { display: flex; flex-direction: column; align-items: flex-start; }
+  #discount-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.08em; }
+  #discount-value { font-size: 28px; font-weight: 700; color: #30d158; letter-spacing: -1px; }
+
+  #bar-wrap { flex: 1; margin: 0 14px; }
+  #bar-label { font-size: 10px; color: #555; text-align: center; margin-bottom: 4px; }
+  #bar-track { background: #1a1a1a; border-radius: 99px; height: 8px; overflow: hidden; }
+  #bar-fill { background: linear-gradient(90deg, #30d158, #34c759); height: 8px; border-radius: 99px; width: 0%; transition: width 0.3s; }
+
+  #timer-display { display: flex; flex-direction: column; align-items: flex-end; }
+  #timer-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.08em; }
+  #timer-value { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+
+  .item {
+    position: absolute;
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-weight: 700; z-index: 4;
+    pointer-events: none;
+  }
+  .item-icon { font-size: 22px; line-height: 1; }
+  .item-text { font-size: 13px; margin-top: 2px; }
+  .item-discount { background: #1a2e1a; border: 1.5px solid #30d158; color: #30d158; }
+  .item-bomb     { background: #2e1a1a; border: 1.5px solid #ff453a; color: #ff453a; }
+
+  #catcher {
+    position: absolute;
+    bottom: 60px;
+    width: 90px; height: 36px;
+    background: #1c1c1e;
+    border: 2px solid #3a3a3c;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    z-index: 5;
+  }
+
+  #bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 52px;
+    background: rgba(0,0,0,0.9);
+    border-top: 1px solid #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #555; z-index: 10;
+  }
+
+  .overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 20; padding: 2rem; text-align: center;
+  }
+  .overlay h1 { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+  .overlay p  { font-size: 14px; color: #888; line-height: 1.6; margin-bottom: 1.5rem; }
+
+  .iphone-price-box {
+    background: #111; border: 1px solid #222;
+    border-radius: 16px; padding: 1.25rem 2rem;
+    margin-bottom: 1.5rem; width: 100%;
+  }
+  .iphone-model   { font-size: 13px; color: #888; margin-bottom: 0.25rem; }
+  .price-original { font-size: 14px; color: #555; text-decoration: line-through; }
+  .price-final    { font-size: 32px; font-weight: 700; color: #30d158; letter-spacing: -1px; margin-top: 0.15rem; }
+  .discount-badge {
+    display: inline-block;
+    background: #1a2e1a; border: 1px solid #30d158;
+    color: #30d158; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 99px; margin-top: 0.4rem;
+  }
+  .discount-badge.zero { background: #2e1a1a; border-color: #ff453a; color: #ff453a; }
+
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 1.5rem; }
+  .rule-box { border-radius: 12px; padding: 12px; font-size: 13px; }
+  .rule-box.good { background: #1a2e1a; border: 1px solid #30d158; color: #30d158; }
+  .rule-box.bad  { background: #2e1a1a; border: 1px solid #ff453a; color: #ff453a; }
+  .rule-icon { font-size: 22px; margin-bottom: 4px; }
+  .rule-text { color: #aaa; font-size: 12px; margin-top: 2px; }
+
+  .btn-start {
+    width: 100%; padding: 15px;
+    background: #30d158; color: #000;
+    border: none; border-radius: 12px;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .btn-start:hover { background: #34c759; }
+  .btn-secondary {
+    width: 100%; padding: 13px;
+    background: #1a1a1a; color: #fff;
+    border: 1px solid #333; border-radius: 12px;
+    font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 8px;
+  }
+  .btn-secondary:hover { background: #222; }
+
+  #flash { position: absolute; inset: 0; pointer-events: none; z-index: 15; opacity: 0; border-radius: 20px; }
+  #flash.green { background: rgba(48,209,88,0.15); }
+  #flash.red   { background: rgba(255,69,58,0.15); }
+
+  #combo-text {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    font-size: 18px; font-weight: 700; color: #30d158;
+    z-index: 16; pointer-events: none; opacity: 0; white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div id="game-container">
+
+  <div id="hud">
+    <div id="discount-display">
+      <span id="discount-label">Descuento</span>
+      <span id="discount-value">0%</span>
+    </div>
+    <div id="bar-wrap">
+      <div id="bar-label">0% → 30%</div>
+      <div id="bar-track"><div id="bar-fill"></div></div>
+    </div>
+    <div id="timer-display">
+      <span id="timer-label">Tiempo</span>
+      <span id="timer-value">30</span>
+    </div>
+  </div>
+
+  <div id="game-area" style="position:absolute; top:70px; left:0; right:0; bottom:52px;">
+    <div id="catcher">📱</div>
+  </div>
+
+  <div id="bottom-bar">← → para mover &nbsp;|&nbsp; o deslizá en móvil</div>
+
+  <div id="flash"></div>
+  <div id="combo-text"></div>
+
+  <!-- START -->
+  <div class="overlay" id="screen-start">
+    <h1>Atrapa el Descuento</h1>
+    <p>Acumulá descuentos y evitá las bombas.<br>Máximo 30% — ¡muy difícil!</p>
+    <div class="rules-grid">
+      <div class="rule-box good">
+        <div class="rule-icon">🏷️</div>
+        <div>+3% / +6%</div>
+        <div class="rule-text">¡Atrapalos! Son pocos</div>
+      </div>
+      <div class="rule-box bad">
+        <div class="rule-icon">💣</div>
+        <div>−5% / −10%</div>
+        <div class="rule-text">¡Llueven bombas!</div>
+      </div>
+    </div>
+    <div class="iphone-price-box">
+      <div class="iphone-model" id="start-model">iPhone 15 Pro — $1.649.999</div>
+      <div style="font-size:12px; color:#555; margin-top:4px;">El iPhone de hoy. ¡Conseguí el mejor descuento!</div>
+    </div>
+    <button class="btn-start" onclick="startGame()">Empezar →</button>
+    <button class="btn-secondary" onclick="showPicker()">Cambiar iPhone</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="overlay" id="screen-result" style="display:none;">
+    <h1 id="result-title">¡Tiempo!</h1>
+    <p id="result-sub">Tu descuento acumulado fue:</p>
+    <div class="iphone-price-box">
+      <div class="iphone-model" id="result-model"></div>
+      <div class="price-original" id="result-original"></div>
+      <div class="price-final" id="result-final"></div>
+      <div class="discount-badge" id="result-badge"></div>
+    </div>
+    <button class="btn-start" onclick="startGame()">Jugar de nuevo</button>
+    <button class="btn-secondary" onclick="showStart()">Inicio</button>
+  </div>
+
+  <!-- PICKER -->
+  <div class="overlay" id="screen-picker" style="display:none;">
+    <h1 style="margin-bottom:1rem;">Elegí tu iPhone</h1>
+    <div id="picker-list" style="width:100%; overflow-y:auto; max-height:420px;"></div>
+    <button class="btn-secondary" style="margin-top:10px;" onclick="showStart()">Cancelar</button>
+  </div>
+
+</div>
+
+<script>
+const iphones = [
+  { model:"iPhone 15 Pro Max", precio:1999999 },
+  { model:"iPhone 15 Pro",     precio:1649999 },
+  { model:"iPhone 15 Plus",    precio:1349999 },
+  { model:"iPhone 15",         precio:1199999 },
+  { model:"iPhone 14 Plus",    precio:1099999 },
+  { model:"iPhone 14",         precio:949999  },
+  { model:"iPhone 13",         precio:799999  },
+  { model:"iPhone SE (3ª gen)",precio:699999  },
+];
+
+const GAME_DURATION = 30;
+const MAX_DISCOUNT  = 30;
+const CATCHER_W = 90;
+const ITEM_W = 64, ITEM_H = 64;
+
+const discountItems = [
+  { text:"+3%",  value:3,   type:"discount" },
+  { text:"+6%",  value:6,   type:"discount" },
+  { text:"-5%",  value:-5,  type:"bomb" },
+  { text:"-10%", value:-10, type:"bomb" },
+];
+
+const WEIGHTS = [8, 7, 50, 45];
+
+let selectedPhone = iphones[1];
+let discount = 0, timeLeft = GAME_DURATION;
+let items = [], catcherX = 165;
+let gameRunning = false;
+let timerInterval = null, spawnInterval = null, animFrame = null;
+let speed = 4.2;
+let touchStartX = null;
+
+const gameArea  = document.getElementById("game-area");
+const catcher   = document.getElementById("catcher");
+const discVal   = document.getElementById("discount-value");
+const barFill   = document.getElementById("bar-fill");
+const timerVal  = document.getElementById("timer-value");
+const flash     = document.getElementById("flash");
+const comboText = document.getElementById("combo-text");
+
+const areaH = () => gameArea.clientHeight;
+const areaW = () => gameArea.clientWidth;
+
+catcherX = (420 - CATCHER_W) / 2;
+catcher.style.left = catcherX + "px";
+document.getElementById("start-model").textContent = `${selectedPhone.model} — ${fmt(selectedPhone.precio)}`;
+
+function fmt(n) { return "$" + n.toLocaleString("es-AR"); }
+
+function weighted(arr, weights) {
+  const total = weights.reduce((a,b) => a+b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < arr.length; i++) { r -= weights[i]; if (r <= 0) return arr[i]; }
+  return arr[0];
+}
+
+function spawnItem() {
+  const def = weighted(discountItems, WEIGHTS);
+  const x = Math.random() * (areaW() - ITEM_W);
+  const el = document.createElement("div");
+  el.className = "item " + (def.type === "discount" ? "item-discount" : "item-bomb");
+  el.innerHTML = `<div class="item-icon">${def.type === "discount" ? "🏷️" : "💣"}</div><div class="item-text">${def.text}</div>`;
+  el.style.left = x + "px";
+  el.style.top = "0px";
+  gameArea.appendChild(el);
+  items.push({ el, x, y: 0, value: def.value, type: def.type });
+}
+
+function updateBar() {
+  barFill.style.width = (discount / MAX_DISCOUNT * 100) + "%";
+  discVal.textContent = discount + "%";
+  discVal.style.color = discount > 0 ? "#30d158" : "#555";
+}
+
+function doFlash(color) {
+  flash.className = color;
+  flash.style.opacity = "1";
+  setTimeout(() => flash.style.opacity = "0", 200);
+}
+
+function showCombo(text, color) {
+  comboText.textContent = text;
+  comboText.style.color = color;
+  comboText.style.top = "45%";
+  comboText.style.opacity = "1";
+  setTimeout(() => {
+    comboText.style.transition = "opacity 0.4s, top 0.4s";
+    comboText.style.opacity = "0";
+    comboText.style.top = "38%";
+  }, 100);
+  setTimeout(() => { comboText.style.transition = ""; }, 600);
+}
+
+function gameLoop() {
+  if (!gameRunning) return;
+  const catcherRect = { x: catcherX, y: areaH() - 60 - 36, w: CATCHER_W, h: 36 };
+
+  for (let i = items.length - 1; i >= 0; i--) {
+    const item = items[i];
+    item.y += speed;
+    item.el.style.top = item.y + "px";
+
+    if (
+      item.y + ITEM_H >= catcherRect.y &&
+      item.y <= catcherRect.y + catcherRect.h &&
+      item.x + ITEM_W >= catcherRect.x &&
+      item.x <= catcherRect.x + catcherRect.w
+    ) {
+      if (item.type === "discount") {
+        const prev = discount;
+        discount = Math.min(MAX_DISCOUNT, discount + item.value);
+        if (discount === MAX_DISCOUNT && prev < MAX_DISCOUNT) showCombo("¡MÁXIMO! 🔥", "#ffd60a");
+        else showCombo("+" + item.value + "%", "#30d158");
+        doFlash("green");
+      } else {
+        const prev = discount;
+        discount = Math.max(0, discount + item.value);
+        if (discount === 0 && prev > 0) showCombo("¡Sin descuento! 😱", "#ff453a");
+        else showCombo(item.value + "%", "#ff453a");
+        doFlash("red");
+      }
+      updateBar();
+      item.el.remove();
+      items.splice(i, 1);
+      continue;
+    }
+
+    if (item.y > areaH()) {
+      item.el.remove();
+      items.splice(i, 1);
+    }
+  }
+
+  speed = 4.2 + ((GAME_DURATION - timeLeft) / GAME_DURATION) * 6.5;
+  animFrame = requestAnimationFrame(gameLoop);
+}
+
+function startGame() {
+  discount = 0; timeLeft = GAME_DURATION; speed = 4.2;
+  items.forEach(i => i.el.remove());
+  items = [];
+  gameRunning = true;
+  updateBar();
+  timerVal.textContent = timeLeft;
+  timerVal.style.color = "#fff";
+
+  document.getElementById("screen-start").style.display  = "none";
+  document.getElementById("screen-result").style.display = "none";
+  document.getElementById("screen-picker").style.display = "none";
+
+  catcherX = (areaW() - CATCHER_W) / 2;
+  catcher.style.left = catcherX + "px";
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerVal.textContent = timeLeft;
+    if (timeLeft <= 10) timerVal.style.color = "#ff453a";
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+
+  spawnInterval = setInterval(spawnItem, 380);
+  spawnItem();
+  animFrame = requestAnimationFrame(gameLoop);
+}
+
+function endGame() {
+  gameRunning = false;
+  clearInterval(timerInterval);
+  clearInterval(spawnInterval);
+  cancelAnimationFrame(animFrame);
+  items.forEach(i => i.el.remove());
+  items = [];
+
+  const finalPrice = Math.round(selectedPhone.precio * (1 - discount / 100));
+  document.getElementById("result-model").textContent    = selectedPhone.model;
+  document.getElementById("result-original").textContent = fmt(selectedPhone.precio);
+  document.getElementById("result-final").textContent    = fmt(finalPrice);
+
+  const badge = document.getElementById("result-badge");
+  if (discount === 0) {
+    badge.textContent = "Sin descuento 😢"; badge.className = "discount-badge zero";
+    document.getElementById("result-title").textContent = "¡Muy difícil!";
+    document.getElementById("result-sub").textContent = "Las bombas te arrasaron...";
+  } else if (discount === MAX_DISCOUNT) {
+    badge.textContent = "¡30% de descuento! 🏆"; badge.className = "discount-badge";
+    document.getElementById("result-title").textContent = "¡Increíble!";
+    document.getElementById("result-sub").textContent = "¡Conseguiste el máximo con todas esas bombas!";
+  } else {
+    badge.textContent = discount + "% de descuento"; badge.className = "discount-badge";
+    document.getElementById("result-title").textContent = "¡Tiempo!";
+    document.getElementById("result-sub").textContent = "Tu descuento final fue:";
+  }
+
+  document.getElementById("screen-result").style.display = "flex";
+}
+
+function showStart() {
+  document.getElementById("screen-start").style.display  = "flex";
+  document.getElementById("screen-result").style.display = "none";
+  document.getElementById("screen-picker").style.display = "none";
+  document.getElementById("start-model").textContent = `${selectedPhone.model} — ${fmt(selectedPhone.precio)}`;
+}
+
+function showPicker() {
+  document.getElementById("screen-picker").style.display = "flex";
+  document.getElementById("screen-start").style.display  = "none";
+  const list = document.getElementById("picker-list");
+  list.innerHTML = iphones.map((p, i) => `
+    <div onclick="selectPhone(${i})" style="
+      background:${p === selectedPhone ? '#1a2e1a' : '#111'};
+      border:1px solid ${p === selectedPhone ? '#30d158' : '#222'};
+      border-radius:12px; padding:14px 16px; margin-bottom:8px;
+      cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#fff; font-size:14px; font-weight:500;">${p.model}</span>
+      <span style="color:#888; font-size:13px;">${fmt(p.precio)}</span>
+    </div>`
+  ).join("");
+}
+
+function selectPhone(i) { selectedPhone = iphones[i]; showStart(); }
+
+const keys = {};
+document.addEventListener("keydown", e => { keys[e.key] = true; });
+document.addEventListener("keyup",   e => { keys[e.key] = false; });
+setInterval(() => {
+  if (!gameRunning) return;
+  if (keys["ArrowLeft"])  catcherX = Math.max(0, catcherX - 14);
+  if (keys["ArrowRight"]) catcherX = Math.min(areaW() - CATCHER_W, catcherX + 14);
+  catcher.style.left = catcherX + "px";
+}, 16);
+
+document.getElementById("game-container").addEventListener("mousemove", e => {
+  if (!gameRunning) return;
+  const rect = gameArea.getBoundingClientRect();
+  catcherX = Math.max(0, Math.min(areaW() - CATCHER_W, e.clientX - rect.left - CATCHER_W / 2));
+  catcher.style.left = catcherX + "px";
+});
+
+document.getElementById("game-container").addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+document.getElementById("game-container").addEventListener("touchmove",  e => {
+  if (!gameRunning || touchStartX === null) return;
+  const dx = e.touches[0].clientX - touchStartX;
+  touchStartX = e.touches[0].clientX;
+  catcherX = Math.max(0, Math.min(areaW() - CATCHER_W, catcherX + dx));
+  catcher.style.left = catcherX + "px";
+}, { passive: true });
+
+document.querySelectorAll(".overlay").forEach(s => s.style.display = "none");
+document.getElementById("screen-start").style.display = "flex";
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html Lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Raleway&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="vieport" content="device-width=device-width, initial-scale=1.0">
+    <title>Complete con sus datos para finalizar la compra</title>
+    <link rel="stylesheet" href="prueba.css">
+</head>
+<body>
+    <a href="proyecto.html">
+    <div class="boton-paginaprincipal">
+    <p>Pagina principal</p>
+</div>
+</a>
+    <div class="form-container">
+        <h1>Complete con sus datos para finalizar la compra</h1>
+
+        <form action="#" method="POST">
+            <!-- Nombre Completo -->
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nobre" name="nombre" required>
+
+            <!-- Correo Electrónico -->
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+        
+            <!-- Direccion -->
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" placeholder="Calle 123, Piso 4" required>
+          
+             <!-- Codigo postal -->
+            <label for="direccion">Codigo postal:</label>
+            <input type="text" id="postal" name="postal" placeholder="1234" required>
+            
+            
+            
+            <!-- Fecha de Nacimiento -->
+            <label for="dob">Fecha de Nacimiento:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <!-- numero de tarjeta -->
+            <label for="tarjeta">Número de tarjeta:</label>
+            <input type="text" id="tarjeta" name="tarjeta" maxlength="16" placeholder="1234 5678 9012 3456" required>
+  
+           <!-- numero de telefono -->
+            <label for="tarjeta">Número de telefono:</label>
+            <input type="text" id="telefono" name="telefono" maxlength="10" placeholder="11-4532-6785" required>
+  
+          
+            <!-- Comentarios -->
+            <label for="comentarios">Comentarios o dudas respecto al servicio:</label>
+            <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+
+            <label for="atajada">Selecciona el modelo de iphone</label>
+        <select name="atajada" id="atajada">
+          <option value="13">iphone 13</option>
+          <option value="14">iphone 14</option>
+          <option value="15">iphone 15</option>
+          <option value="16">iphone 16</option>
+          <option value="17">iphone 17</option>
+         
+        </select>
+
+
+
+            <!-- Términos y Condiciones -->
+            <label for="terminos">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                Acepto los <a href="#">términos y condiciones</a>
+            </label>
+
+            <!-- Botones -->
+            <button type="submit">Comprar</button>
+            <button type="reset">Reiniciar</button>
+        </form>
+    </div>
+
+</body>
+</html>
