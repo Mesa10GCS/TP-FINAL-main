@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Felicitaciones</title>
+    <link rel="stylesheet" href="felicitaciones.css">
+</head>
+<body> 
+    <a href="proyecto.html">
+        <div class="boton-paginaprincipal">
+            <p>Pagina principal</p>
+        </div>
+    </a>
+ 
+    <div class="felicitaciones">
+        <h1>¡Felicitaciones!</h1>
+    </div>
+ 
+    <div class="compra">
+        <p>Tu compra se ha realizado con éxito.</p>
+    </div>
+ 
+    <div class="form-container">
+        <div class="texto">
+            <p class="texto-votacion">Nos estamos expandiendo y queríamos saber qué nuevo producto querías que agregáramos.</p>
+        </div>
+ 
+        <div class="imagenes-voto" id="imagenes-voto">
+            <div class="opcion-voto" onclick="votar(this)">
+                <img src="mac.jpg" alt="MacBook">
+                <p>Macbook</p>
+            </div>
+            <div class="opcion-voto" onclick="votar(this)">
+                <img src="ipad.jpg" alt="Ipad">
+                <p>Ipad</p>
+            </div>
+            <div class="opcion-voto" onclick="votar(this)">
+                <img src="airpods.jpg" alt="Airpods">
+                <p>Airpods</p>
+            </div>
+        </div>
+ 
+        <div class="gracias" id="gracias">
+            <p>¡Muchas gracias por tu aporte!</p>
+        </div>
+    </div>
+ 
+    <script>
+        function votar() {
+            document.getElementById("imagenes-voto").style.display = "none";
+            document.getElementById("gracias").style.display = "block";
+        }
+    </script>
+</body> 
+</html>

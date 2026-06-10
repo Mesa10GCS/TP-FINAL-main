@@ -84,3 +84,41 @@ p2 {
     border-radius: 15px;                    /* esquinas redondeadas */
     border: 2px solid #0071e3;             /* contorno azul de 2px */
 }
+.boton-juego {
+    position: fixed;                /* queda fijo en la pantalla aunque hagas scroll */
+    top: 10px;                      /* distancia desde arriba */
+    left: 10px;                     /* distancia desde la izquierda */
+    background-color: #333;         /* color de fondo del bloque */
+    padding: 10px 20px;             /* espacio interior arriba/abajo y a los lados */
+    border-radius: 10px;            /* bordes redondeados */
+}
+
+.boton-juego p {
+    font-family: 'Orbitron', sans-serif; /* fuente tecnológica que ya tenés importada */
+    font-size: 18px;                /* tamaño del texto */
+    color: white;                   /* color del texto */
+    margin: 0;                      /* saca el margen por defecto del p */
+}
+.contador-promo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.contador-titulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    color: #aaa;
+    margin: 0 0 6px 0;
+}
+
+#contador {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    color: white;
+    margin: 0;
+}

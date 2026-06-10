@@ -1,0 +1,88 @@
+body {
+    background-image: url('fondo.jpg');
+    background-size: cover;      /* Estira o encoge la imagen para que cubra toda la pantalla sin deformarse */
+    background-position: center;  /* Centra la imagen vertical y horizontalmente para que no se corte un solo lado */
+    background-repeat: no-repeat; /* Evita que la imagen se duplique como mosaico si la pantalla es muy grande */
+    margin: 0;                          /* elimina el margen por defecto del navegador */
+    min-height: 100vh;                  /* ocupa al menos toda la altura de la pantalla */
+    display: flex;                      /* activa flexbox para alinear los hijos */
+    flex-direction: column;             /* los hijos se apilan verticalmente */
+    align-items: center;                /* centra todo horizontalmente */
+    padding: 40px 20px;                 /* espacio interno arriba/abajo y a los lados */
+    box-sizing: border-box;             /* el padding no agrega tamaño extra al body */
+}
+.form-container {
+       background: rgba(37, 3, 3, 0.05); /* blanco muy transparente */
+    backdrop-filter: blur(100px);           /* efecto vidrio esmerilado */
+    border: 1px solid rgba(228, 222, 222, 0.151); /* borde sutil */
+    border-radius: 20px;
+    padding: 40px; /* agrega espacio interno de 40px en los 4 lados del elemento */
+}
+p {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 1); /* sombra negra sólida, desplazada 2px abajo y a la derecha */
+    line-height: 1.7;    /* más espacio entre líneas, más legible */
+    letter-spacing: 1px; /* leve separación entre letras */
+    font-size: 18px; 
+    font-family: "Raleway", sans-serif;
+    color: #ffffff;       /* texto blanco */
+    text-align: center;   /* centra el texto */
+    max-width: 600px;      /* limita el ancho para que no se extienda demasiado */
+    margin: 0;            /* sin margen extra */
+    margin: 0 auto; /* sin margen arriba/abajo, y centrado horizontalmente con auto */
+    margin-top: 30px; 
+}
+h1 {
+ text-shadow: 0 0 20px rgba(0, 0, 0, 0.63);
+    text-transform: uppercase; /* todo en mayúsculas */
+    letter-spacing: 4px; /* separa las letras, se ve más premium */
+    font-family: "Orbitron", sans-serif;
+    font-size: 52px;
+    color: #ffffff;                           /* texto rojo */
+    text-align: center;                       /* centra el texto dentro del elemento */
+    margin-bottom: 30px;                      /* espacio debajo del h1, antes de la imagen */
+}
+.boton-comprar {
+    position: fixed;                /* queda fijo en la pantalla aunque hagas scroll */
+    top: 100px;                      /* distancia desde arriba */
+    left: 10px;                     /* distancia desde la izquierda */
+    background-color: #333;         /* color de fondo del bloque */
+    padding: 10px 20px;             /* espacio interior arriba/abajo y a los lados */
+    border-radius: 10px;            /* bordes redondeados */
+}
+
+.boton-comprar p {
+    font-family: 'Orbitron', sans-serif; /* fuente tecnológica que ya tenés importada */
+    font-size: 18px;                /* tamaño del texto */
+    color: white;                   /* color del texto */
+    margin: 0;                      /* saca el margen por defecto del p */
+}
+.boton-paginaprincipal {
+    position: fixed;                /* queda fijo en la pantalla aunque hagas scroll */
+    top: 10px;                      /* distancia desde arriba */
+    left: 10px;                     /* distancia desde la izquierda */
+    background-color: #333;         /* color de fondo del bloque */
+    padding: 10px 20px;             /* espacio interior arriba/abajo y a los lados */
+    border-radius: 10px;            /* bordes redondeados */
+}
+
+.boton-paginaprincipal p {
+    font-family: 'Orbitron', sans-serif; /* fuente tecnológica que ya tenés importada */
+    font-size: 18px;                /* tamaño del texto */
+    color: white;                   /* color del texto */
+    margin: 0;                      /* saca el margen por defecto del p */
+}
+.boton-catalogo {
+    position: fixed;                /* queda fijo en la pantalla aunque hagas scroll */
+    top: 190px;                      /* distancia desde arriba */
+    left: 10px;                     /* distancia desde la izquierda */
+    background-color: #333;         /* color de fondo del bloque */
+    padding: 10px 20px;             /* espacio interior arriba/abajo y a los lados */
+    border-radius: 10px;            /* bordes redondeados */
+}
+
+.boton-catalogo p {
+    font-family: 'Orbitron', sans-serif; /* fuente tecnológica que ya tenés importada */
+    font-size: 18px;                /* tamaño del texto */
+    color: white;                   /* color del texto */
+    margin: 0;                      /* saca el margen por defecto del p */
+}

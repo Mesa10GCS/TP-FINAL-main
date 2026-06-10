@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html Lang="es">
+    
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Raleway&display=swap" rel="stylesheet">
@@ -7,6 +8,7 @@
     <meta name="vieport" content="device-width=device-width, initial-scale=1.0">
     <title>Complete con sus datos para finalizar la compra</title>
     <link rel="stylesheet" href="prueba.css">
+  <script src="temafondo.js" defer></script>
 </head>
 <body>
     <a href="proyecto.html">
@@ -14,10 +16,15 @@
     <p>Pagina principal</p>
 </div>
 </a>
+<a href="catalogo.html">
+                <div class="boton-catalogo">
+                        <p>Catalogo</p>
+                </div>
+        </a>
     <div class="form-container">
         <h1>Complete con sus datos para finalizar la compra</h1>
 
-        <form action="#" method="POST">
+        <form action="felicitaciones.html" method="POST">
             <!-- Nombre Completo -->
             <label for="nombre">Nombre Completo:</label>
             <input type="text" id="nobre" name="nombre" required>
@@ -73,10 +80,15 @@
             </label>
 
             <!-- Botones -->
+            
             <button type="submit">Comprar</button>
+            
+        
             <button type="reset">Reiniciar</button>
         </form>
     </div>
+<button id="btnTema">🌙 Modo Oscuro</button>
 
+<script src="botones.js" defer></script>
 </body>
 </html>

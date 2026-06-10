@@ -1,0 +1,137 @@
+body {
+    background-image: url('fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+ 
+.felicitaciones {
+    text-align: center;
+    animation: aparecer 1s ease forwards;
+}
+ 
+.felicitaciones h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    color: #ffffff;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(113, 98, 255, 0.8), 0 0 80px rgba(113, 98, 255, 0.4);
+}
+ 
+.compra {
+    text-align: center;
+    animation: aparecer 1.5s ease forwards;
+    margin-bottom: 40px;
+}
+ 
+.compra p {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 2px;
+}
+ 
+/* Bloque de votación */
+.form-container {
+    background-color: rgba(30, 30, 40, 0.85);
+    border: 1px solid rgba(113, 98, 255, 0.3);
+    border-radius: 16px;
+    padding: 30px 40px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: aparecer 2s ease forwards;
+}
+ 
+.texto-votacion {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+ 
+.imagenes-voto {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+ 
+.opcion-voto {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 10px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+ 
+.opcion-voto:hover {
+    border-color: #7162ff;
+    transform: translateY(-4px);
+}
+ 
+.opcion-voto img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+ 
+.opcion-voto p {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 8px;
+}
+ 
+/* Mensaje de gracias - oculto por defecto */
+.gracias {
+    display: none;
+    animation: aparecer 0.5s ease forwards;
+}
+ 
+.gracias p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: #7162ff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(113, 98, 255, 0.6);
+}
+ 
+/* Botón */
+.boton-paginaprincipal {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+ 
+.boton-paginaprincipal p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    color: white;
+    margin: 0;
+}
+ 
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -150,3 +150,29 @@ a:hover {
     color: white;                   /* color del texto */
     margin: 0;                      /* saca el margen por defecto del p */
 }
+.boton-catalogo {
+    position: fixed;                /* queda fijo en la pantalla aunque hagas scroll */
+    top: 80px;                      /* distancia desde arriba */
+    left: 10px;                     /* distancia desde la izquierda */
+    background-color: #333;         /* color de fondo del bloque */
+    padding: 10px 20px;             /* espacio interior arriba/abajo y a los lados */
+    border-radius: 10px;            /* bordes redondeados */
+}
+
+.boton-catalogo p {
+    font-family: 'Orbitron', sans-serif; /* fuente tecnológica que ya tenés importada */
+    font-size: 18px;                /* tamaño del texto */
+    color: white;                   /* color del texto */
+    margin: 0;                      /* saca el margen por defecto del p */
+}
+
+/* Estilos del modo oscuro — se aplican cuando el body tiene la clase "oscuro" */
+body.oscuro {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+#btnTema {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

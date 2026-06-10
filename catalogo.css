@@ -11,6 +11,16 @@ body {
     padding: 40px 20px;                 /* espacio interno arriba/abajo y a los lados */
     box-sizing: border-box;             /* el padding no agrega tamaño extra al body */
 }
+#buscador {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 16px;
+  width: 60%;
+  font-size: 16px;
+  border: 2px solid #7162ff;
+  border-radius: 8px;
+  outline: none;
+}
 .iphone13{
     display: flex;
     align-items: center;
@@ -191,10 +201,38 @@ body {
     margin-bottom: 20px;
     border-radius: 0 0 20px 20px;
 }
+#iphone-16pro:checked ~ .bloque-info-16pro {
+    max-height: 500px;
+}
+.bloque-info-16pro {
+    font-family: 'Exo 2', sans-serif;
+    background-color: #444; /* Color de fondo un poco más claro que el bloque principal */
+    color: white; /* Texto en blanco */
+    width: 650px; /* Mismo ancho que el bloque principal */
+    max-height: 0; /* Altura 0 para que esté oculto */
+    overflow: hidden; /* Esconde el contenido que sobresale */
+    transition: max-height 0.4s ease; /* Animación suave al aparecer */
+    margin-bottom: 20px;
+    border-radius: 0 0 20px 20px;
+}
 #iphone-17:checked ~ .bloque-info-17 {
     max-height: 500px;
 }
 .bloque-info-17 {
+    font-family: 'Exo 2', sans-serif;
+    background-color: #444; /* Color de fondo un poco más claro que el bloque principal */
+    color: white; /* Texto en blanco */
+    width: 650px; /* Mismo ancho que el bloque principal */
+    max-height: 0; /* Altura 0 para que esté oculto */
+    overflow: hidden; /* Esconde el contenido que sobresale */
+    transition: max-height 0.4s ease; /* Animación suave al aparecer */
+    margin-bottom: 20px;
+    border-radius: 0 0 20px 20px;
+}
+#iphone-17pro:checked ~ .bloque-info-17pro {
+    max-height: 500px;
+}
+.bloque-info-17pro {
     font-family: 'Exo 2', sans-serif;
     background-color: #444; /* Color de fondo un poco más claro que el bloque principal */
     color: white; /* Texto en blanco */
