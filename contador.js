@@ -1,7 +1,7 @@
 
 let fechaFin = new Date("2026-08-31T23:59:59");
 
-setInterval(function() {
+contador(function() {
     let ahora = new Date();
     let diferencia = fechaFin - ahora;
 
