@@ -1,6 +1,6 @@
 // setTimeout del apunte: ejecuta la función una sola vez después del tiempo indicado
 // 1000 = 1 segundo, así le da tiempo a la página a cargar antes de mostrar el cartel
-popup(function() {
+setTimeout(function() {
 
   // Verificamos si ya fue mostrado antes
   if (!localStorage.getItem("popupMostrado")) {
